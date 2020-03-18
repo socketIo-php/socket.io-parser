@@ -43,12 +43,11 @@ class Parser
         // first is type
         $str = '' . $obj['type'];
 
-        /*
-             // attachments if we have them
-             if (exports.BINARY_EVENT === obj.type || exports.BINARY_ACK === obj.type) {
-             str += obj.attachments + '-';
-         }
-        */
+        // attachments if we have them
+        if (PacketEnum::BINARY_EVENT === $obj['type'] || PacketEnum::BINARY_ACK === $obj['type']) {
+            $str .= $obj[' attachments'] . '-';
+        }
+        
         // if we have a namespace other than `/`
         // we append it followed by a comma `,`
         if ($obj['nsp'] && '/' !== $obj['nsp']) {
@@ -127,7 +126,7 @@ class Parser
         }
 
         // look up attachments if type binary
-        if (PacketEnum::BINARY_EVENT === $p['type'] ||PacketEnum::BINARY_EVENT === $p['type']) {
+        if (PacketEnum::BINARY_EVENT === $p['type'] || PacketEnum::BINARY_EVENT === $p['type']) {
             $buf = '';
             while ($str{++$i} !== '-') {
                 $buf .= $str{$i};
